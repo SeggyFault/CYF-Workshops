@@ -1,10 +1,41 @@
 import express from "express";
-
 const app = express();
-app.listen(4173, () => {
-  console.log("Listening on http://localhost:4173.");
+const PORT = 4173;
+import * as fs from "node:fs/promises";
+
+let dataStandford=new Array;
+app.get("/pharmacies", (req, res) => {
+  fs.readFile("./data/Stratford.json", "utf8").then(data =>{
+    dataStandford = JSON.parse(data);
+    res.status(200).send(dataStandford["pharmacies"]);
+  });
 });
 
-app.get("/api/v1/example", (req, res) => {
-  res.status(200).json({ message: "Success" });
+app.get("/colleges", (req, res) => {
+  fs.readFile("./data/Stratford.json", "utf8").then(data =>{
+    dataStandford = JSON.parse(data);
+    res.status(200).send(dataStandford["colleges"]);
+  });
+});
+
+app.get("/doctors", (req, res) => {
+  fs.readFile("./data/Stratford.json", "utf8").then(data =>{
+    dataStandford = JSON.parse(data);
+    res.status(200).send(dataStandford["doctors"]);
+  });
+});
+
+app.get("/hospitals", (req, res) => {
+  fs.readFile("./data/Stratford.json", "utf8").then(data =>{
+    dataStandford = JSON.parse(data);
+    res.status(200).send(dataStandford["hospitals"]);
+  });
+});
+
+
+
+
+
+app.listen(PORT, () => {
+  console.log("Listening on http://localhost:4173.");
 });
